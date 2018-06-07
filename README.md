@@ -1,6 +1,11 @@
-# Demotable
+# angular-5-data-table-demo
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+
+# angular5-data-table
+
+This project use https://www.npmjs.com/package/angular5-data-table
+npm install angular5-data-table
 
 ## Development server
 

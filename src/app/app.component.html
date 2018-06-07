@@ -3,18 +3,49 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+<div style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+  <div>
+    <span>Filtre By Name: </span>
+    <input type="text" [(ngModel)]="namefiltre" class="form-control input-sm" style="display: inline-block; width: 100px">
+  </div>
+  <data-table id="persons-grid" headerTitle="Employees" [pagination]="true" [items]="items" [itemCount]="itemCount" (reload)="reloadItems($event)"
+    (rowClick)="rowClick($event)" (rowDoubleClick)="rowDoubleClick($event)" [rowTooltip]="rowTooltip" [rowColors]="rowColors">
+    <data-table-column [property]="'name'" [header]="'Name'" [sortable]="true" [resizable]="true">
+    </data-table-column>
+    <data-table-column [property]="'date'" [header]="'Date'" [sortable]="true">
+      <ng-template #dataTableCell let-item="item">
+        <span>{{item.date | date:'yyyy-MM-dd'}}</span>
+      </ng-template>
+    </data-table-column>
+    <data-table-column property="phoneNumber" header="Phone number" width="150px">
+    </data-table-column>
+    <data-table-column [property]="'jobTitle'" [header]="'Job title'" [visible]="false">
+    </data-table-column>
+    <data-table-column [property]="'active'" [header]="'Active'" [width]="100" [resizable]="true">
+      <ng-template #dataTableHeader let-item="item">
+        <span style="color: rgb(232, 0, 0)">Active</span>
+      </ng-template>
+      <ng-template #dataTableCell let-item="item">
+        <span style="color: grey">
+          <span class="glyphicon glyphicon-ok" *ngIf="item.active"></span>
+          <span class="glyphicon glyphicon-remove" *ngIf="!item.active"></span>
+        </span>
+      </ng-template>
+    </data-table-column>
+    <data-table-column [property]="'Etat'" [header]="'Présent / Absent'" [visible]="true">
+      <ng-template #dataTableCell let-item="item">
+        <input type="checkbox" (change)="FieldsChange($event)">
+        <b>Présent</b>
+      </ng-template>
+    </data-table-column>
+
+    <data-table-column [property]="'desc'" [header]="'Description'" [visible]="true">
+      <ng-template #dataTableCell let-item="item">
+        <textarea (blur)="test(desc.value)" #desc></textarea>
+      </ng-template>
+    </data-table-column>
+  </data-table>
+  <button type="button" (click)="save()" class="btn btn-success">Save</button>
+</div>
